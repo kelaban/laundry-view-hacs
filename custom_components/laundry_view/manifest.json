@@ -1,0 +1,11 @@
+{
+  "codeowners": ["@kelaban"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/kelaban/laundry_view_hacs",
+  "domain": "laundry_view",
+  "iot_class": "cloud_polling",
+  "name": "Laundry View",
+  "requirements": ["aiohttp==3.8.1"],
+  "version": "1.0.0"
+}

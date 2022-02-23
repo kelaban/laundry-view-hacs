@@ -1,0 +1,17 @@
+{
+    "config": {
+        "error": {},
+        "step": {
+            "setup": {
+                "data": {
+                    "loc": "loc query parameter",
+                    "room": "room query parameter",
+                    "rdm": "rdm query parameter",
+                    "usernumbers": "Phone Numbers to check for Notifications"
+                },
+                "description": "Enter your Laundry View Parameters",
+                "title": "Laundry View"
+            }
+        }
+    }
+}
