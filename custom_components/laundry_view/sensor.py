@@ -5,7 +5,9 @@ import re
 import aiohttp
 from datetime import timedelta
 from typing import Any, Callable, Dict, Optional
-from urllib import parse
+from functools import cached_property
+from dataclasses import dataclass
+
 
 import voluptuous as vol
 from config.custom_components.laundry_view.const import CONF_USERNUMBERS, DOMAIN
@@ -24,15 +26,15 @@ from homeassistant.helpers.update_coordinator import (
     UpdateFailed,
 )
 
+from .const import DOMAIN, CONF_LOC, CONF_RDM, CONF_ROOM, CONF_USERNUMBERS
+
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
-    vol.Schema(
-        {
-            vol.Required(CONF_LOC): cv.string,
-            vol.Required(CONF_ROOM): cv.string,
-            vol.Required(CONF_RDM): cv.string,
-            vol.Required(CONF_USERNUMBERS): cv.string,
-        }
-    )
+    {
+        vol.Required(CONF_LOC): cv.string,
+        vol.Required(CONF_ROOM): cv.string,
+        vol.Required(CONF_RDM): cv.string,
+        vol.Required(CONF_USERNUMBERS): cv.string,
+    }
 )
 
 
@@ -67,21 +69,19 @@ async def async_setup_entry(
     await coordinator.async_config_entry_first_refresh()
 
     async_add_entities(
-        MyEntity(coordinator, idx) for idx, ent in enumerate(coordinator.data)
+        LaundryRoomSensor(coordinator, idx)
+        for idx, ent in enumerate(coordinator.data["machine_status"])
     )
 
 
 class LaundryViewDataCoordinator(DataUpdateCoordinator):
     def __init__(
-        self,
-        session: aiohttp.ClientSession,
-        hass: core.HomeAssistant,
-        config: dict,
-    ):
+        self, session: aiohttp.ClientSession, hass: core.HomeAssistant, config: dict
+    ) -> None:
         self._session = session
         self._config = config
 
-        super.__init__(
+        super().__init__(
             hass,
             _LOGGER,
             name=DOMAIN,
@@ -89,98 +89,86 @@ class LaundryViewDataCoordinator(DataUpdateCoordinator):
             update_method=self._async_update,
         )
 
-   """Example data Format
-   {
-       "lRoom": {
-        "app_data": [
-          {
-            "lrm_serial_number": "L13176",
-            "laundry_room_desc_key": "10000000705",
-            "lrm_status": "1",
-            "appliance_desc_key": "10000010515",
-            "appliance_desc": "01",
-            "lrm_channel": "1",
-            "alert_idle_tolerance": 0,
-            "broken_ind": "0",
-            "speedqueen_ind": "1",
-            "inventory": "Stacked Dryer",
-            "appliance_type": "D",
-            "appliance_type_desc": "DRYER",
-            "status": "1",
-            "status_start_time": 1644010053,
-            "app_run_time": 0,
-            "avg_cycle_time": 60,
-            "percentage": 0,
-            "bar_width": 0,
-            "time_remaining": 60,
-            "status_toggle": "available"
-          } ]
-      }
-   }
-      """
-
-
     async def _async_update(self):
         notifications = {}
-        if self.config.get(CONF_USERNUMBERS, ""):
+        if self._config.get(CONF_USERNUMBERS, ""):
             pass
 
+        loc = self._config.get(CONF_LOC)
+        room = self._config.get(CONF_ROOM)
+        rdm = self._config.get(CONF_RDM)
         async with self._session.get(
-            f"https://www.laundryview.com/api/c_room?loc={self.loc}&room={self.room}&rdm={self.rdm}"
+            f"https://www.laundryview.com/api/c_room?loc={loc}&room={room}&rdm={rdm}"
         ) as response:
             response.raise_for_status()
             resp = await response.json()
             machine_status = resp["lRoom"]["app_data"]
 
+            _LOGGER.debug(f"resp: {resp}")
+
             return {"notifications": notifications, "machine_status": machine_status}
+
+
+@dataclass
+class Appliance:
+    state: str
+    app_type: str
+    channel: str
+    time_remaining: int
+    appliance_desc_key: str
+
+    @property
+    def app_type_name(self) -> str:
+        if self.app_type == "W":
+            return "WASHER"
+        elif self.app_type == "D":
+            return "DRYER"
+        else:
+            return "UNKNOWN"
 
 
 class LaundryRoomSensor(CoordinatorEntity):
     def __init__(self, coordinator: LaundryViewDataCoordinator, idx: int):
-        super.__init__(coordinator)
+        super().__init__(coordinator)
         self._idx = idx
 
-    # app_type_name = LaundryView.appliance_type_name(appliance["appliance_type"])
-    # channel = appliance["lrm_channel"]
-    # time_remaining = appliance["time_remaining"]
-    # current_state = appliance["status_toggle"]
-    # has_notification = appliance["has_notification"]
-
-    # return (
-    #     f'{ha_prefix}laundry_room_{app_type_name.lower()}_{channel}',
-    #     {
-    #         "state": current_state,
-    #         "attributes": {
-    #             "friendly_name": f'{app_type_name.lower()} {channel}',
-    #             "time_remaining": time_remaining,
-    #             "type": app_type_name,
-    #             "has_notification": has_notification
-    #         }
-    #     }
-    # )
+    @cached_property
+    def appliance(self) -> Appliance:
+        data = self.coordinator.data["machine_status"][self._idx]
+        return Appliance(
+            state=data["status_toggle"],
+            app_type=data["appliance_type"],
+            channel=data["lrm_channel"],
+            time_remaining=data["time_remaining"],
+            appliance_desc_key=data["appliance_desc_key"],
+        )
 
     @property
     def name(self) -> str:
         """Return the name of the entity."""
-        return self._name
+        return f"laundry_room_{self.appliance.app_type_name.lower()} {self.appliance.channel}"
 
     @property
     def unique_id(self) -> str:
         """Return the unique ID of the sensor."""
-        return self.repo
+        return self.appliance.appliance_desc_key
 
     @property
     def available(self) -> bool:
         """Return True if entity is available."""
-        return self._available
+        # TODO
+        return True
 
     @property
     def state(self) -> Optional[str]:
-        return self._state
+        return self.appliance.state
 
     @property
     def device_state_attributes(self) -> Dict[str, Any]:
-        return self.attrs
+        return {
+            "time_remaining": self.appliance.time_remaining,
+            "type": self.appliance.app_type_name,
+        }
 
 
 async def async_setup_platform(
@@ -191,7 +179,33 @@ async def async_setup_platform(
 ) -> None:
     """Set up the sensor platform."""
     raise NotImplementedError()
-    # session = async_get_clientsession(hass)
-    # github = GitHubAPI(session, "requester", oauth_token=config[CONF_ACCESS_TOKEN])
-    # sensors = [GitHubRepoSensor(github, repo) for repo in config[CONF_REPOS]]
-    # async_add_entities(sensors, update_before_add=True)
+
+
+# Example data Format
+# {
+#    "lRoom": {
+#     "app_data": [
+#       {
+#         "lrm_serial_number": "L13176",
+#         "laundry_room_desc_key": "10000000705",
+#         "lrm_status": "1",
+#         "appliance_desc_key": "10000010515",
+#         "appliance_desc": "01",
+#         "lrm_channel": "1",
+#         "alert_idle_tolerance": 0,
+#         "broken_ind": "0",
+#         "speedqueen_ind": "1",
+#         "inventory": "Stacked Dryer",
+#         "appliance_type": "D",
+#         "appliance_type_desc": "DRYER",
+#         "status": "1",
+#         "status_start_time": 1644010053,
+#         "app_run_time": 0,
+#         "avg_cycle_time": 60,
+#         "percentage": 0,
+#         "bar_width": 0,
+#         "time_remaining": 60,
+#         "status_toggle": "available"
+#       } ]
+#   }
+# }
