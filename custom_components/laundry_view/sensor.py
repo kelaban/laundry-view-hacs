@@ -40,7 +40,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.info("Sensor loaded")
 # Time between updating data from GitHub
-SCAN_INTERVAL = timedelta(minutes=10)
+SCAN_INTERVAL = timedelta(minutes=1)
 
 
 async def async_setup_entry(
