@@ -1,0 +1,754 @@
+{
+  "school_id": "1298",
+  "lrm_ind": false,
+  "location_ind": false,
+  "changepoint_ind": 0,
+  "lvs_ind": "1",
+  "school_desc_key": "1298",
+  "school_name": "235 LINCOLN PL",
+  "pop": 1,
+  "linx_type": "D",
+  "linx_password": "",
+  "report_problem_toggle": "Y",
+  "faq_url": "faqs.php",
+  "time_zone_offset": 5,
+  "message_id_tolerance": "31",
+  "lrm_heartbeat_tolerance": "1800",
+  "alert_idle_tolerance": 0.0003,
+  "alert_idle_minimum": "72",
+  "alert_available_tolerance": "2880",
+  "alert_soap_tolerance": "2880",
+  "idle_alert_email_address": "",
+  "alert_email_address": "",
+  "google_im_enabled": "1",
+  "sms_enabled": "1",
+  "google_adsense_enabled": "0",
+  "google_adsense_channel": "0",
+  "gang_vend": 0.25,
+  "configuration_status": "0",
+  "num_available": {
+    "4697601": {
+      "D": 3,
+      "W": 4
+    }
+  },
+  "lvs_url": "https://site.laundryview.com/235lincoln",
+  "room_data": [
+    {
+      "school_name": "235 LINCOLN PL",
+      "campus_name": "235 LINCOLN PL",
+      "laundry_room_location": "4697601",
+      "laundry_room_name": "235 LINCOLN PL-RM 1",
+      "online": 1,
+      "total": 1,
+      "show_consumer_ui": 1
+    }
+  ],
+  "report_a_problem_url": "https://www.macgray.com/laundrylinx/index.cgi",
+  "lRoom": {
+    "app_data": [
+      {
+        "lrm_serial_number": "L13176",
+        "laundry_room_desc_key": "10000000705",
+        "lrm_status": "1",
+        "appliance_desc_key": "10000010515",
+        "appliance_desc": "01",
+        "lrm_channel": "1",
+        "alert_idle_tolerance": 0,
+        "broken_ind": "0",
+        "speedqueen_ind": "1",
+        "inventory": "Stacked Dryer",
+        "appliance_type": "D",
+        "appliance_type_desc": "DRYER",
+        "status": "1",
+        "status_start_time": 1644010053,
+        "app_run_time": 0,
+        "avg_cycle_time": 60,
+        "percentage": 0,
+        "bar_width": 0,
+        "time_remaining": 60,
+        "status_toggle": "available"
+      },
+      {
+        "lrm_serial_number": "L13176",
+        "laundry_room_desc_key": "10000000705",
+        "lrm_status": "1",
+        "appliance_desc_key": "10000010516",
+        "appliance_desc": "02",
+        "lrm_channel": "2",
+        "alert_idle_tolerance": 0,
+        "broken_ind": "0",
+        "speedqueen_ind": "1",
+        "inventory": "Stacked Dryer",
+        "appliance_type": "D",
+        "appliance_type_desc": "DRYER",
+        "status": "1",
+        "status_start_time": 1643992329,
+        "app_run_time": 0,
+        "avg_cycle_time": 60,
+        "percentage": 0,
+        "bar_width": 0,
+        "time_remaining": 60,
+        "status_toggle": "available"
+      },
+      {
+        "lrm_serial_number": "L13176",
+        "laundry_room_desc_key": "10000000705",
+        "lrm_status": "1",
+        "appliance_desc_key": "10000010517",
+        "appliance_desc": "03",
+        "lrm_channel": "3",
+        "alert_idle_tolerance": 0,
+        "broken_ind": "0",
+        "speedqueen_ind": "1",
+        "inventory": "Stacked Dryer",
+        "appliance_type": "D",
+        "appliance_type_desc": "DRYER",
+        "status": "0",
+        "status_start_time": 1644083991,
+        "app_run_time": 32,
+        "avg_cycle_time": 60,
+        "percentage": 0.5333333333333333,
+        "bar_width": 0.5333333333333333,
+        "time_remaining": 28,
+        "status_toggle": "inuse"
+      },
+      {
+        "lrm_serial_number": "L13176",
+        "laundry_room_desc_key": "10000000705",
+        "lrm_status": "1",
+        "appliance_desc_key": "10000010518",
+        "appliance_desc": "04",
+        "lrm_channel": "4",
+        "alert_idle_tolerance": 0,
+        "broken_ind": "0",
+        "speedqueen_ind": "1",
+        "inventory": "Stacked Dryer",
+        "appliance_type": "D",
+        "appliance_type_desc": "DRYER",
+        "status": "1",
+        "status_start_time": 1644014044,
+        "app_run_time": 0,
+        "avg_cycle_time": 60,
+        "percentage": 0,
+        "bar_width": 0,
+        "time_remaining": 60,
+        "status_toggle": "available"
+      },
+      {
+        "lrm_serial_number": "L13176",
+        "laundry_room_desc_key": "10000000705",
+        "lrm_status": "1",
+        "appliance_desc_key": "10000010513",
+        "appliance_desc": "05",
+        "lrm_channel": "5",
+        "alert_idle_tolerance": 0,
+        "broken_ind": "0",
+        "speedqueen_ind": "1",
+        "inventory": "Stack W/D Combo",
+        "appliance_type": "D",
+        "appliance_type_desc": "COMBO",
+        "status": "0",
+        "status_start_time": 1644084009,
+        "app_run_time": 32,
+        "avg_cycle_time": 60,
+        "percentage": 0.5333333333333333,
+        "bar_width": 0.5333333333333333,
+        "time_remaining": 28,
+        "status_toggle": "inuse"
+      },
+      {
+        "lrm_serial_number": "L13176",
+        "laundry_room_desc_key": "10000000705",
+        "lrm_status": "1",
+        "appliance_desc_key": "10000010514",
+        "appliance_desc": "06",
+        "lrm_channel": "6",
+        "alert_idle_tolerance": 0,
+        "broken_ind": "0",
+        "speedqueen_ind": "1",
+        "inventory": "Stack W/D Combo",
+        "appliance_type": "W",
+        "appliance_type_desc": "COMBO",
+        "status": "1",
+        "status_start_time": 1644010202,
+        "app_run_time": 0,
+        "avg_cycle_time": 38,
+        "percentage": 0,
+        "bar_width": 0,
+        "time_remaining": 38,
+        "status_toggle": "available"
+      },
+      {
+        "lrm_serial_number": "L13176",
+        "laundry_room_desc_key": "10000000705",
+        "lrm_status": "1",
+        "appliance_desc_key": "10000010508",
+        "appliance_desc": "07",
+        "lrm_channel": "7",
+        "alert_idle_tolerance": 0,
+        "broken_ind": "0",
+        "speedqueen_ind": "1",
+        "inventory": "Front Load Washer",
+        "appliance_type": "W",
+        "appliance_type_desc": "WASHER",
+        "status": "1",
+        "status_start_time": 1644009986,
+        "app_run_time": 0,
+        "avg_cycle_time": 38,
+        "percentage": 0,
+        "bar_width": 0,
+        "time_remaining": 38,
+        "status_toggle": "available"
+      },
+      {
+        "lrm_serial_number": "L13176",
+        "laundry_room_desc_key": "10000000705",
+        "lrm_status": "1",
+        "appliance_desc_key": "10000010509",
+        "appliance_desc": "08",
+        "lrm_channel": "8",
+        "alert_idle_tolerance": 0,
+        "broken_ind": "0",
+        "speedqueen_ind": "1",
+        "inventory": "Top Load Washer",
+        "appliance_type": "W",
+        "appliance_type_desc": "WASHER",
+        "status": "1",
+        "status_start_time": 1644083611,
+        "app_run_time": 0,
+        "avg_cycle_time": 38,
+        "percentage": 0,
+        "bar_width": 0,
+        "time_remaining": 38,
+        "status_toggle": "available"
+      },
+      {
+        "lrm_serial_number": "L13176",
+        "laundry_room_desc_key": "10000000705",
+        "lrm_status": "1",
+        "appliance_desc_key": "10000010510",
+        "appliance_desc": "09",
+        "lrm_channel": "9",
+        "alert_idle_tolerance": 0,
+        "broken_ind": "0",
+        "speedqueen_ind": "1",
+        "inventory": "Top Load Washer",
+        "appliance_type": "W",
+        "appliance_type_desc": "WASHER",
+        "status": "1",
+        "status_start_time": 1644083611,
+        "app_run_time": 0,
+        "avg_cycle_time": 38,
+        "percentage": 0,
+        "bar_width": 0,
+        "time_remaining": 38,
+        "status_toggle": "available"
+      },
+      {
+        "lrm_serial_number": "L13176",
+        "laundry_room_desc_key": "10000000705",
+        "lrm_status": "1",
+        "appliance_desc_key": "10000010511",
+        "appliance_desc": "10",
+        "lrm_channel": "10",
+        "alert_idle_tolerance": 0,
+        "broken_ind": "1",
+        "speedqueen_ind": "1",
+        "inventory": "Top Load Washer",
+        "appliance_type": "W",
+        "appliance_type_desc": "WASHER",
+        "status": "0",
+        "status_start_time": 1637690033,
+        "app_run_time": 106598,
+        "avg_cycle_time": 38,
+        "percentage": 2805.2105263157896,
+        "bar_width": 0,
+        "time_remaining": 0,
+        "status_toggle": "unavailable"
+      },
+      {
+        "lrm_serial_number": "L13176",
+        "laundry_room_desc_key": "10000000705",
+        "lrm_status": "1",
+        "appliance_desc_key": "10000010512",
+        "appliance_desc": "11",
+        "lrm_channel": "11",
+        "alert_idle_tolerance": 0,
+        "broken_ind": "1",
+        "speedqueen_ind": "1",
+        "inventory": "Top Load Washer",
+        "appliance_type": "W",
+        "appliance_type_desc": "WASHER",
+        "status": "0",
+        "status_start_time": 1642268992,
+        "app_run_time": 30282,
+        "avg_cycle_time": 38,
+        "percentage": 796.8947368421053,
+        "bar_width": 0,
+        "time_remaining": 0,
+        "status_toggle": "unavailable"
+      }
+    ],
+    "toggles": {
+      "0": {
+        "time_left": "available",
+        "time_left_lite": "Available",
+        "status_toggle": "available",
+        "time_remaining": 38,
+        "percentage": 0
+      },
+      "1": {
+        "time_left": "available",
+        "time_left_lite": "Available",
+        "status_toggle": "available",
+        "time_remaining": 38,
+        "percentage": 0
+      },
+      "2": {
+        "time_left": "available",
+        "time_left_lite": "Available",
+        "status_toggle": "available",
+        "time_remaining": 38,
+        "percentage": 0
+      },
+      "3": {
+        "time_left": "available",
+        "time_left_lite": "Available",
+        "status_toggle": "available",
+        "time_remaining": 38,
+        "percentage": 0
+      },
+      "4": {
+        "time_left": "out of service",
+        "time_left_lite": "Out of service",
+        "status_toggle": "unavailable",
+        "time_remaining": 0,
+        "percentage": 2805.2105263157896
+      },
+      "5": {
+        "time_left": "out of service",
+        "time_left_lite": "Out of service",
+        "status_toggle": "unavailable",
+        "time_remaining": 0,
+        "percentage": 796.8947368421053
+      },
+      "6": {
+        "time_left": "available",
+        "time_left_lite": "Available",
+        "status_toggle": "available",
+        "time_remaining": 60,
+        "percentage": 0
+      },
+      "7": {
+        "time_left": "available",
+        "time_left_lite": "Available",
+        "status_toggle": "available",
+        "time_remaining": 60,
+        "percentage": 0
+      },
+      "8": {
+        "time_left": "est. time remaining 28 min",
+        "time_left_lite": "28 min remaining",
+        "status_toggle": "inuse",
+        "time_remaining": 28,
+        "percentage": 0.5333333333333333
+      },
+      "9": {
+        "time_left": "available",
+        "time_left_lite": "Available",
+        "status_toggle": "available",
+        "time_remaining": 60,
+        "percentage": 0
+      },
+      "10": {
+        "time_left": "est. time remaining 28 min",
+        "time_left_lite": "28 min remaining",
+        "status_toggle": "inuse",
+        "time_remaining": 28,
+        "percentage": 0.5333333333333333
+      }
+    },
+    "disable_time_remain_washers": "0",
+    "disable_time_remain_dryers": "0",
+    "laundry_room_location": "4697601"
+  },
+  "usageDataTotal": 11,
+  "usageData": [
+    {
+      "day": 5,
+      "hour": 9,
+      "inuse": 3
+    },
+    {
+      "day": 4,
+      "hour": 22,
+      "inuse": 5
+    },
+    {
+      "day": 6,
+      "hour": 16,
+      "inuse": 1
+    },
+    {
+      "day": 7,
+      "hour": 12,
+      "inuse": 2
+    },
+    {
+      "day": 4,
+      "hour": 14,
+      "inuse": 10
+    },
+    {
+      "day": 1,
+      "hour": 10,
+      "inuse": 4
+    },
+    {
+      "day": 5,
+      "hour": 21,
+      "inuse": 1
+    },
+    {
+      "day": 1,
+      "hour": 16,
+      "inuse": 6
+    },
+    {
+      "day": 2,
+      "hour": 14,
+      "inuse": 9
+    },
+    {
+      "day": 6,
+      "hour": 22,
+      "inuse": 2
+    },
+    {
+      "day": 6,
+      "hour": 13,
+      "inuse": 1
+    },
+    {
+      "day": 3,
+      "hour": 18,
+      "inuse": 1
+    },
+    {
+      "day": 2,
+      "hour": 20,
+      "inuse": 1
+    },
+    {
+      "day": 3,
+      "hour": 10,
+      "inuse": 4
+    },
+    {
+      "day": 5,
+      "hour": 18,
+      "inuse": 2
+    },
+    {
+      "day": 1,
+      "hour": 13,
+      "inuse": 6
+    },
+    {
+      "day": 1,
+      "hour": 19,
+      "inuse": 2
+    },
+    {
+      "day": 4,
+      "hour": 11,
+      "inuse": 11
+    },
+    {
+      "day": 2,
+      "hour": 9,
+      "inuse": 5
+    },
+    {
+      "day": 4,
+      "hour": 20,
+      "inuse": 2
+    },
+    {
+      "day": 2,
+      "hour": 15,
+      "inuse": 1
+    },
+    {
+      "day": 6,
+      "hour": 14,
+      "inuse": 2
+    },
+    {
+      "day": 2,
+      "hour": 21,
+      "inuse": 4
+    },
+    {
+      "day": 3,
+      "hour": 13,
+      "inuse": 2
+    },
+    {
+      "day": 4,
+      "hour": 17,
+      "inuse": 6
+    },
+    {
+      "day": 2,
+      "hour": 12,
+      "inuse": 5
+    },
+    {
+      "day": 5,
+      "hour": 10,
+      "inuse": 2
+    },
+    {
+      "day": 4,
+      "hour": 23,
+      "inuse": 1
+    },
+    {
+      "day": 6,
+      "hour": 11,
+      "inuse": 1
+    },
+    {
+      "day": 6,
+      "hour": 20,
+      "inuse": 2
+    },
+    {
+      "day": 6,
+      "hour": 17,
+      "inuse": 1
+    },
+    {
+      "day": 3,
+      "hour": 16,
+      "inuse": 3
+    },
+    {
+      "day": 2,
+      "hour": 18,
+      "inuse": 4
+    },
+    {
+      "day": 1,
+      "hour": 11,
+      "inuse": 9
+    },
+    {
+      "day": 7,
+      "hour": 15,
+      "inuse": 4
+    },
+    {
+      "day": 4,
+      "hour": 9,
+      "inuse": 2
+    },
+    {
+      "day": 4,
+      "hour": 18,
+      "inuse": 2
+    },
+    {
+      "day": 2,
+      "hour": 13,
+      "inuse": 10
+    },
+    {
+      "day": 5,
+      "hour": 11,
+      "inuse": 3
+    },
+    {
+      "day": 3,
+      "hour": 8,
+      "inuse": 6
+    },
+    {
+      "day": 6,
+      "hour": 12,
+      "inuse": 2
+    },
+    {
+      "day": 2,
+      "hour": 7,
+      "inuse": 2
+    },
+    {
+      "day": 3,
+      "hour": 17,
+      "inuse": 3
+    },
+    {
+      "day": 7,
+      "hour": 10,
+      "inuse": 3
+    },
+    {
+      "day": 3,
+      "hour": 11,
+      "inuse": 6
+    },
+    {
+      "day": 1,
+      "hour": 20,
+      "inuse": 7
+    },
+    {
+      "day": 4,
+      "hour": 12,
+      "inuse": 2
+    },
+    {
+      "day": 1,
+      "hour": 17,
+      "inuse": 2
+    },
+    {
+      "day": 2,
+      "hour": 10,
+      "inuse": 10
+    },
+    {
+      "day": 4,
+      "hour": 21,
+      "inuse": 1
+    },
+    {
+      "day": 2,
+      "hour": 16,
+      "inuse": 2
+    },
+    {
+      "day": 6,
+      "hour": 9,
+      "inuse": 1
+    },
+    {
+      "day": 6,
+      "hour": 15,
+      "inuse": 3
+    },
+    {
+      "day": 3,
+      "hour": 14,
+      "inuse": 7
+    },
+    {
+      "day": 7,
+      "hour": 13,
+      "inuse": 8
+    },
+    {
+      "day": 4,
+      "hour": 15,
+      "inuse": 5
+    },
+    {
+      "day": 5,
+      "hour": 22,
+      "inuse": 2
+    },
+    {
+      "day": 1,
+      "hour": 18,
+      "inuse": 6
+    },
+    {
+      "day": 6,
+      "hour": 10,
+      "inuse": 1
+    },
+    {
+      "day": 6,
+      "hour": 21,
+      "inuse": 5
+    },
+    {
+      "day": 3,
+      "hour": 15,
+      "inuse": 2
+    },
+    {
+      "day": 6,
+      "hour": 18,
+      "inuse": 1
+    },
+    {
+      "day": 7,
+      "hour": 14,
+      "inuse": 7
+    },
+    {
+      "day": 1,
+      "hour": 12,
+      "inuse": 11
+    },
+    {
+      "day": 4,
+      "hour": 16,
+      "inuse": 7
+    },
+    {
+      "day": 4,
+      "hour": 10,
+      "inuse": 5
+    },
+    {
+      "day": 4,
+      "hour": 19,
+      "inuse": 1
+    },
+    {
+      "day": 7,
+      "hour": 17,
+      "inuse": 4
+    },
+    {
+      "day": 3,
+      "hour": 9,
+      "inuse": 11
+    },
+    {
+      "day": 2,
+      "hour": 8,
+      "inuse": 1
+    },
+    {
+      "day": 2,
+      "hour": 22,
+      "inuse": 1
+    },
+    {
+      "day": 7,
+      "hour": 11,
+      "inuse": 4
+    },
+    {
+      "day": 3,
+      "hour": 12,
+      "inuse": 5
+    },
+    {
+      "day": 4,
+      "hour": 13,
+      "inuse": 7
+    },
+    {
+      "day": 1,
+      "hour": 15,
+      "inuse": 8
+    }
+  ]
+}

@@ -10,7 +10,6 @@ from dataclasses import dataclass
 
 
 import voluptuous as vol
-from config.custom_components.laundry_view.const import CONF_USERNUMBERS, DOMAIN
 from homeassistant import config_entries, core
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 import homeassistant.helpers.config_validation as cv
@@ -39,6 +38,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 
 
 _LOGGER = logging.getLogger(__name__)
+_LOGGER.info("Sensor loaded")
 # Time between updating data from GitHub
 SCAN_INTERVAL = timedelta(minutes=10)
 
@@ -49,6 +49,7 @@ async def async_setup_entry(
     async_add_entities,
 ):
     """Setup sensors from a config entry created in the integrations UI."""
+    _LOGGER.debug("Setting up entry")
     config = hass.data[DOMAIN][config_entry.entry_id]
 
     if config_entry.options:
@@ -56,7 +57,23 @@ async def async_setup_entry(
 
     session = async_get_clientsession(hass)
     coordinator = LaundryViewDataCoordinator(session, hass, config)
+    _LOGGER.debug("About to start coordinator")
+    await async_start_platform(coordinator, async_add_entities)
 
+async def async_setup_platform(
+    hass: HomeAssistantType,
+    config: ConfigType,
+    async_add_entities: Callable,
+    discovery_info: Optional[DiscoveryInfoType] = None,
+) -> None:
+    """Set up the sensor platform."""
+    _LOGGER.debug("Setting up platform")
+    session = async_get_clientsession(hass)
+    coordinator = LaundryViewDataCoordinator(session, hass, config)
+    await async_start_platform(coordinator, async_add_entities)
+
+
+async def async_start_platform(coordinator, async_add_entities: Callable):
     #
     # Fetch initial data so we have data when entities subscribe
     #
@@ -66,6 +83,7 @@ async def async_setup_entry(
     # If you do not want to retry setup on failure, use
     # coordinator.async_refresh() instead
     #
+    _LOGGER.debug("Starting data coordinator")
     await coordinator.async_config_entry_first_refresh()
 
     async_add_entities(
@@ -146,7 +164,7 @@ class LaundryRoomSensor(CoordinatorEntity):
     @property
     def name(self) -> str:
         """Return the name of the entity."""
-        return f"laundry_room_{self.appliance.app_type_name.lower()} {self.appliance.channel}"
+        return f"laundry room {self.appliance.app_type_name.lower()} {self.appliance.channel}"
 
     @property
     def unique_id(self) -> str:
@@ -164,21 +182,13 @@ class LaundryRoomSensor(CoordinatorEntity):
         return self.appliance.state
 
     @property
-    def device_state_attributes(self) -> Dict[str, Any]:
+    def extra_state_attributes(self) -> Dict[str, Any]:
         return {
             "time_remaining": self.appliance.time_remaining,
             "type": self.appliance.app_type_name,
         }
 
 
-async def async_setup_platform(
-    hass: HomeAssistantType,
-    config: ConfigType,
-    async_add_entities: Callable,
-    discovery_info: Optional[DiscoveryInfoType] = None,
-) -> None:
-    """Set up the sensor platform."""
-    raise NotImplementedError()
 
 
 # Example data Format
