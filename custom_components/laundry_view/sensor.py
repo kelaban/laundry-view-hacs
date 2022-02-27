@@ -4,8 +4,8 @@ import logging
 import re
 import aiohttp
 from datetime import timedelta
-from typing import Any, Callable, Dict, Optional
-from functools import cached_property
+from typing import Any, Callable, Dict, List, Optional
+from functools import cache
 from dataclasses import dataclass
 
 
@@ -87,10 +87,50 @@ async def async_start_platform(coordinator, async_add_entities: Callable):
     await coordinator.async_config_entry_first_refresh()
 
     async_add_entities(
-        LaundryRoomSensor(coordinator, idx)
-        for idx, ent in enumerate(coordinator.data["machine_status"])
+        LaundryRoomSensor(coordinator, appliance_desc_key=key)
+        for key in coordinator.data["machine_status"].appliance_ids()
     )
 
+@dataclass
+class Appliance:
+    state: str
+    app_type: str
+    channel: str
+    time_remaining: int
+    appliance_desc_key: str
+
+    @property
+    def app_type_name(self) -> str:
+        if self.app_type == "W":
+            return "WASHER"
+        elif self.app_type == "D":
+            return "DRYER"
+        else:
+            return "UNKNOWN"
+    
+class MachineStatus():
+    _raw_data: dict
+    
+    def __init__(self, data: dict):
+        self._raw_data = data
+    
+    @cache
+    def get(self, appliance_desc_key) -> Appliance:
+        for app in self._raw_data:
+            if app["appliance_desc_key"] == appliance_desc_key:
+                return Appliance(
+                    state=app["status_toggle"],
+                    app_type=app["appliance_type"],
+                    channel=app["lrm_channel"],
+                    time_remaining=app["time_remaining"],
+                    appliance_desc_key=app["appliance_desc_key"],
+                )
+
+        raise Exception(f"{appliance_desc_key} not found")
+    
+    def appliance_ids(self) -> List[str]:
+        return [x["appliance_desc_key"] for x in self._raw_data]
+        
 
 class LaundryViewDataCoordinator(DataUpdateCoordinator):
     def __init__(
@@ -124,52 +164,31 @@ class LaundryViewDataCoordinator(DataUpdateCoordinator):
 
             _LOGGER.debug(f"resp: {resp}")
 
-            return {"notifications": notifications, "machine_status": machine_status}
-
-
-@dataclass
-class Appliance:
-    state: str
-    app_type: str
-    channel: str
-    time_remaining: int
-    appliance_desc_key: str
-
-    @property
-    def app_type_name(self) -> str:
-        if self.app_type == "W":
-            return "WASHER"
-        elif self.app_type == "D":
-            return "DRYER"
-        else:
-            return "UNKNOWN"
+            return {"notifications": notifications, "machine_status": MachineStatus(data=machine_status)}
 
 
 class LaundryRoomSensor(CoordinatorEntity):
-    def __init__(self, coordinator: LaundryViewDataCoordinator, idx: int):
+    def __init__(self, coordinator: LaundryViewDataCoordinator, appliance_desc_key: str):
         super().__init__(coordinator)
-        self._idx = idx
+        self._appliance_desc_key = appliance_desc_key
 
-    @cached_property
-    def appliance(self) -> Appliance:
-        data = self.coordinator.data["machine_status"][self._idx]
-        return Appliance(
-            state=data["status_toggle"],
-            app_type=data["appliance_type"],
-            channel=data["lrm_channel"],
-            time_remaining=data["time_remaining"],
-            appliance_desc_key=data["appliance_desc_key"],
-        )
+    @property
+    def _machine_status(self) -> MachineStatus:
+        return self.coordinator.data["machine_status"]
+
+    @property
+    def _appliance(self) -> Appliance:
+        return self._machine_status.get(self._appliance_desc_key)
 
     @property
     def name(self) -> str:
         """Return the name of the entity."""
-        return f"laundry room {self.appliance.app_type_name.lower()} {self.appliance.channel}"
+        return f"laundry room {self._appliance.app_type_name.lower()} {self._appliance.channel}"
 
     @property
     def unique_id(self) -> str:
         """Return the unique ID of the sensor."""
-        return self.appliance.appliance_desc_key
+        return self._appliance.appliance_desc_key
 
     @property
     def available(self) -> bool:
@@ -179,13 +198,13 @@ class LaundryRoomSensor(CoordinatorEntity):
 
     @property
     def state(self) -> Optional[str]:
-        return self.appliance.state
+        return self._appliance.state
 
     @property
     def extra_state_attributes(self) -> Dict[str, Any]:
         return {
-            "time_remaining": self.appliance.time_remaining,
-            "type": self.appliance.app_type_name,
+            "time_remaining": self._appliance.time_remaining,
+            "type": self._appliance.app_type_name,
         }
 
 
