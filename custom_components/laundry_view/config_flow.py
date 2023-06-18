@@ -3,13 +3,7 @@ import logging
 from typing import Any, Dict, Optional
 
 from homeassistant import config_entries
-from homeassistant.core import callback
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import homeassistant.helpers.config_validation as cv
-from homeassistant.helpers.entity_registry import (
-    async_entries_for_config_entry,
-    async_get_registry,
-)
 import voluptuous as vol
 
 from .const import DOMAIN, CONF_LOC, CONF_RDM, CONF_ROOM, CONF_USERNUMBERS
